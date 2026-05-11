@@ -1,4 +1,4 @@
-// Reverse Linked List
+// Reverse Linked List,  easy
 // Leetcode
 // 10-05-2026
 struct ListNode

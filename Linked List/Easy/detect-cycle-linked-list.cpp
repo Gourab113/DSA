@@ -3,7 +3,7 @@
 
 // 11-05-2026, 8:25 AM
 
-// Cycle detection in linked list
+// Cycle detection in linked list, easy
 
 // Leetcode Linked list cycle
 
