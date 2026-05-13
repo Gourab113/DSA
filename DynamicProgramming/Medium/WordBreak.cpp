@@ -16,6 +16,8 @@
 // if made then make dp[i] = 1;
 // for any other words if dp[i - words.size()] == 1 , then dp[i] = 1 if the word match with s characters
 
+// we get error when we want to access array[-1] index, segmentation fault
+
 #include <bits/stdc++.h>
 using namespace std;
 
