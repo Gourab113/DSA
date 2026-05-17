@@ -16,10 +16,16 @@ typedef struct student
 
 int main()
 {
-  struct employee emp1;
+  employee emp1;
 
   emp1.name = "gourab";
   emp1.id = 113;
+
+  employee *p;
+  p = &emp1;
+  p->name = "Gourab Chandra Biswas";
+  cout << (p->name) << endl;
+  cout << emp1.name << endl;
 
   cout << "employee name = " << emp1.name << endl;
   cout << "employee id = " << emp1.id << endl;
