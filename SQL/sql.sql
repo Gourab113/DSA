@@ -213,4 +213,74 @@ SELECT DATEDIFF("2017-06-25", "2017-06-15");
 -- result 10
 
 
+-- round a value to decimal point use round
+-- round(4.55555,2) gives 2 decimal values after point
+select machine_id, round(avg(time), 3) as 'processing_time'
+from
+(select (b.timestamp - a.timestamp) as 'time', a.machine_id as 'machine_id',
+a.process_id as 'process_id'
+from Activity a
+join Activity b
+on a.machine_id= b.machine_id and 
+a.process_id = b.process_id
+where a.activity_type = 'start' and 
+b.activity_type = 'end') as temp
+group by machine_id;
 
+-- length(value) is used to find the length of a string
+
+
+--coalesce() : return the first not null or not undefined value
+-- coalesce(null, 2): return 2, 0/0 is null
+
+-- can use alias inside group by
+
+
+select r.contest_id, round((count(r.user_id)*100 / 
+      ( select count(u.user_id) 
+       from Users u)
+       ), 2)as 'percentage'
+from Register  r
+group by r.contest_id
+order by percentage desc,  r.contest_id asc;
+
+
+-- string functions
+
+-- concat(a,b,c) : concat is used to add multiple string column
+-- insert(current, start, length, replaced_value) : 1 based indexing, replace character
+-- substr(string, start, length) : start position : 1 2 3  from left and   -3 -2 -1 from right
+-- substr is used to get the specific value from string from start to length
+
+-- case 
+
+-- can check multiple values in where in
+=
+
+select round(( (
+    select count(*)
+    from Delivery
+    where (customer_id, order_date) in (
+        select customer_id, min(order_date) as 'order_date'
+        from Delivery 
+        group by customer_id
+    ) and datediff(customer_pref_delivery_date, order_date  ) =0
+)* 100 /count(*) ), 2) as 'immediate_percentage'
+from Delivery
+where (customer_id, order_date) in (
+    select customer_id, min(order_date) as 'order_date'
+    from Delivery 
+    group by customer_id
+);
+
+
+--limit does not give null value, but max(), min() gives null when value not found
+-- bigest single number
+select max(num) as 'num'
+from MyNumbers
+where num in (
+    select num
+    from MyNumbers
+    group by num
+    having count(num) = 1
+);
